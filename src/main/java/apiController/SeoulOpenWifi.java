@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SeoulOpenWifi {
-    final String HOST = "http://openapi.seoul.go.kr:8088";
-    final String API_KEY = "684a557976636b7335396a51505845";
-    final String TYPE = "JSON";
-    final String SERVICE = "TbPublicWifiInfo";
-    String startIndex = "1";
+    private final String HOST = "http://openapi.seoul.go.kr:8088";
+    private final String API_KEY = "684a557976636b7335396a51505845";
+    private final String TYPE = "JSON";
+    private final String SERVICE = "TbPublicWifiInfo";
+    private String startIndex = "1";
 
     final String[] API_JSON_KEYS = {
             "X_SWIFI_MGR_NO",
@@ -37,7 +37,7 @@ public class SeoulOpenWifi {
             "WORK_DTTM"
     };
 
-    public String getListTotalCount() throws IOException {
+    private String getListTotalCount() throws IOException {
         String url = HOST + "/"
                 + API_KEY + "/"
                 + TYPE + "/"
@@ -51,7 +51,6 @@ public class SeoulOpenWifi {
         Response response = client.newCall(request).execute();
 
         String json = Objects.requireNonNull(response.body()).string();
-        System.out.println(json);
 
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(json);
@@ -85,7 +84,6 @@ public class SeoulOpenWifi {
                 Response response = client.newCall(request).execute();
 
                 String json = Objects.requireNonNull(response.body()).string();
-                System.out.println(json);
 
                 JsonParser parser = new JsonParser();
                 JsonElement element = parser.parse(json);

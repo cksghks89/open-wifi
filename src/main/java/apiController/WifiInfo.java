@@ -1,6 +1,7 @@
 package apiController;
 
 public class WifiInfo {
+    private double distance;
     private String mgrNo;
     private String wrdofc;
     private String mainName;
@@ -22,6 +23,9 @@ public class WifiInfo {
         this.mgrNo = mgrNo;
     }
 
+    public void setDistance(double distance) {
+        this.distance = Math.round(distance * Math.pow(10, 4)) / Math.pow(10, 4);
+    }
     public void setWrdofc(String wrdofc) {
         this.wrdofc = wrdofc;
     }
@@ -144,5 +148,9 @@ public class WifiInfo {
 
     public String getWorkDttm() {
         return workDttm;
+    }
+
+    public double getDistance() {
+        return distance;
     }
 }
