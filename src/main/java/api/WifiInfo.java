@@ -1,4 +1,4 @@
-package apiController;
+package api;
 
 public class WifiInfo {
     private double distance;
