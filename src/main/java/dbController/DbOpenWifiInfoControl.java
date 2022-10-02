@@ -1,6 +1,6 @@
 package dbController;
 
-import apiController.WifiInfo;
+import api.WifiInfo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -162,11 +162,6 @@ public class DbOpenWifiInfoControl {
                 preparedStatement.setString(16, curInfo.getWorkDttm());
 
                 int affected = preparedStatement.executeUpdate();
-                if(affected == 1){
-                    System.out.println(i+1 + "data insert success");
-                }else{
-                    System.out.println(i+1 + "data insert fail");
-                }
             }
 
             connection.commit();
@@ -190,6 +185,47 @@ public class DbOpenWifiInfoControl {
             }
         }
         return true;
+    }
+
+    public void deleteWifiInfoTable(){
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("test");
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:" + PROJECT_PATH + "/" + DB_PATH);
+            System.out.println("db Open database successfully");
+
+            String sql = "delete from WIFI_INFO;";
+
+            preparedStatement = connection.prepareStatement(sql);
+
+            int affected = preparedStatement.executeUpdate();
+            System.out.println(affected);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if(preparedStatement != null && !preparedStatement.isClosed()){
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private double gpsDistance(double lat1, double lon1, double lat2, double lon2) {
