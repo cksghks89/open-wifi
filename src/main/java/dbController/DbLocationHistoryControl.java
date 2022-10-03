@@ -2,6 +2,7 @@ package dbController;
 
 import history.LocationHistory;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class DbLocationHistoryControl {
@@ -35,7 +36,7 @@ public class DbLocationHistoryControl {
 
                 history.setX(Double.parseDouble(rs.getString("LAT")));
                 history.setY(Double.parseDouble(rs.getString("LNT")));
-                history.setDate(Date.valueOf(rs.getString("SEARCH_DATE")));
+                history.setDate(LocalDateTime.parse(rs.getString("SEARCH_DATE")));
                 history.setId(Integer.parseInt(rs.getString("ID")));
 
                 historyList.add(history);

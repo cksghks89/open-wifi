@@ -115,8 +115,6 @@ public class DbOpenWifiInfoControl {
             connection = DriverManager.getConnection("jdbc:sqlite:" + PROJECT_PATH + "/" + DB_PATH);
             System.out.println("Open database successfully");
 
-            // auto commit false 로 설정하지 않으면 데이터 삽입속도가 매우 느려짐
-            // 각각의 데이터 insert 구문마다 트랜잭션을 발생시키기 때문
             connection.setAutoCommit(false);
 
             for(int i = 0; i < wifiList.size(); i++){
@@ -161,7 +159,7 @@ public class DbOpenWifiInfoControl {
                 preparedStatement.setString(15, String.valueOf(curInfo.getLnt()));
                 preparedStatement.setString(16, curInfo.getWorkDttm());
 
-                int affected = preparedStatement.executeUpdate();
+                preparedStatement.executeUpdate();
             }
 
             connection.commit();
