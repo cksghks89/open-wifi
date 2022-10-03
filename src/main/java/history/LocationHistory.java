@@ -1,16 +1,16 @@
 package history;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class LocationHistory {
     private double x;
     private double y;
-    private Date date;
+    private LocalDateTime date;
     private int id;
 
     public LocationHistory(){}
 
-    public LocationHistory(double x, double y, Date date) {
+    public LocationHistory(double x, double y, LocalDateTime date) {
         this.x = x;
         this.y = y;
         this.date = date;
@@ -28,7 +28,7 @@ public class LocationHistory {
         this.y = y;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -43,8 +43,7 @@ public class LocationHistory {
     public int getId() {
         return id;
     }
-
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 }
