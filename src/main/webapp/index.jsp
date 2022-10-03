@@ -1,12 +1,16 @@
 <%@ page import="dbController.DbOpenWifiInfoControl" %>
 <%@ page import="api.WifiInfo" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="dbController.DbLocationHistoryControl" %>
+<%@ page import="history.LocationHistory" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
-    <link rel="stylesheet" href="style.css">
+    <title>와이파이 정보 구하기</title>
+    <link rel="stylesheet" href="tableStyle.scss">
 </head>
 <body>
     <h2>와이파이 정보 구하기</h2>
@@ -39,29 +43,27 @@
         <table>
             <thead>
                 <tr>
-                    <td>거리(Km)</td>
-                    <td>관리번호</td>
-                    <td>자치구</td>
-                    <td>와이파이명</td>
-                    <td>도로명주소</td>
-                    <td>상세주소</td>
-                    <td>설치위치(층)</td>
-                    <td>설치유형</td>
-                    <td>설치기관</td>
-                    <td>서비스구분</td>
-                    <td>망종류</td>
-                    <td>설치년도</td>
-                    <td>실내외 구분</td>
-                    <td>WIFI 접속환경</td>
-                    <td>X좌표</td>
-                    <td>Y좌표</td>
-                    <td>작업일자</td>
+                    <th>거리(Km)</th>
+                    <th>관리번호</th>
+                    <th>자치구</th>
+                    <th>와이파이명</th>
+                    <th>도로명주소</th>
+                    <th>상세주소</th>
+                    <th>설치위치(층)</th>
+                    <th>설치유형</th>
+                    <th>설치기관</th>
+                    <th>서비스구분</th>
+                    <th>망종류</th>
+                    <th>설치년도</th>
+                    <th>실내외 구분</th>
+                    <th>WIFI 접속환경</th>
+                    <th>X좌표</th>
+                    <th>Y좌표</th>
+                    <th>작업일자</th>
                 </tr>
             </thead>
             <tbody>
                 <%
-                    // reqest의 get 데이터가 있으면 진행
-                    // 없다면 위치 정보를 입력한 후에 조회 문구 출력.
                     String lat = request.getParameter("lat");
                     String lnt = request.getParameter("lnt");
 
@@ -72,6 +74,10 @@
                         </tr>
                         <%
                     }else{
+                        DbLocationHistoryControl historyDb = new DbLocationHistoryControl();
+                        LocationHistory history = new LocationHistory(Double.parseDouble(lat), Double.parseDouble(lnt), LocalDateTime.now());
+                        historyDb.insertHistory(history);
+
                         DbOpenWifiInfoControl db = new DbOpenWifiInfoControl();
                         ArrayList<WifiInfo> wifiList = db.getWifiInfo(lat, lnt);
 
